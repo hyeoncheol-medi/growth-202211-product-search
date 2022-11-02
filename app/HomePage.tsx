@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Props = {
   products: any[];
@@ -11,6 +12,8 @@ export default function HomePage({ products, token }: Props) {
   const [pending, setPending] = useState(false);
   const functionId = "e1s2g7eycc4zvcrz";
   const hiddenFileInput = useRef(null);
+
+  const router = useRouter();
 
   const handleClick = (event: any) => {
     // @ts-ignore
@@ -44,9 +47,11 @@ export default function HomePage({ products, token }: Props) {
 
   const reloadProducts = (ids: any) => {
     setPending(false);
-    location.href = `?${new URLSearchParams({
-      id__in: ids,
-    })}`;
+    router.replace(
+      `?${new URLSearchParams({
+        id__in: ids,
+      })}`
+    );
   };
 
   return (
